@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(121, 14, 14);
+}
+
+header {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border: 5px solid black;
+    background-color: rgb(150, 23, 23);
+    max-width: 70%;
+}
+
+#main {
+    margin-left: 1%;
+}
+#content{
+    font-family: Cambria, Cochin, Arial, Helvetica, sans-serif;
+}
+#content img {
+    max-height: 500px;
+}
+
+.trivia {
+    max-width: 85%;
+}
+
+ol {
+    display: flex;
+}
+
+ol li {
+    list-style-type: none;
+    flex-direction: row;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+a:hover {
+    text-decoration: underline;
+}

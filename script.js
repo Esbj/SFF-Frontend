@@ -1,37 +1,52 @@
-var main = document.getElementById("main");
-var content = document.getElementById("content")
-var header = document.getElementById("header")
-var login = document.getElementById("login");
-var logInButton = document.getElementById("logInButton")
+var logInArea = document.getElementById("login");
+
+var StudioURL = "https://localhost:44361/api/Filmstudio";
+var movieTitle = document.getElementsByClassName("title")
 
 
-logInButton.addEventListener("click", function(){
-    console.log("Button!!!");
+if (localStorage.getItem("userName") != null) {
+    showLoginPage();
+} else {
+    showStartPage();
+}
 
-    var getUser = document.getElementById("user").value;
-    var getPassword = document.getElementById("password").value;
+function showStartPage() {
+    logInArea.innerHTML =
+        '<input type="text" placeholder="Användarnamn" name="login" id="user"><input type = "password" placeholder = "Lösenord" name = "pass" id = "password"><button type="submit" id="logInButton">Logga in</button>'
+    var logInButton = document.getElementById("logInButton")
+    logInButton.addEventListener("click", function () {
+        console.log("Button!!!");
 
-    console.log(getUser + " " + getPassword)
+        var getUser = document.getElementById("user").value;
+        var getPassword = document.getElementById("password").value;
 
-    fetch("https://localhost:44361/api/Filmstudio")
-        .then(function(response)
-        {
-            return response.json();
-        })
-        .then(function(json)
-        {
-            console.log(json);
-            for(var i=0; json.length > i; i++){
-                if(json[i].name == getUser && json[i].password == getPassword){
-                    logIn();
-                } else {
-                    console.log("Welp... that didn't work did it")
+        console.log(getUser + " " + getPassword)
+
+        fetch(StudioURL)
+            .then(response => response.json())
+            .then(function (json) {
+                console.log(json);
+                for (var i = 0; json.length > i; i++) {
+                    if (json[i].name == getUser && json[i].password == getPassword && json[i].verified == true) {
+                        localStorage.setItem("userName", getUser)
+                        showLoginPage();
+                    } else {
+                        console.log("Welp... that didn't work did it")
+                    }
                 }
-            }
-        })
-})
+            })
+    })
+}
+
+function showLoginPage() {
+    console.log("Succes!");
+    logInArea.innerHTML = "";
+    logInArea.insertAdjacentHTML("beforeend", "Hej och välkommen " + localStorage.getItem("userName"));
+    logInArea.insertAdjacentHTML("beforeend", '<br><button type="submit" id = "logOutButton">Logga ut</button>');
+    var logOutButton = document.getElementById("logOutButton");
 
 
-function logIn() {
-    console.log("Succes!")
+    logOutButton.addEventListener("click", function () {
+        localStorage.removeItem("userName");
+    })
 }

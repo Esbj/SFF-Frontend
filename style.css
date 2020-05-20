@@ -1,8 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: black;
-    color: white;
+    background-color: darkred;
+    color: black;
 }
 
 header {
@@ -23,14 +23,13 @@ header {
 
 #content img {
     max-height: 500px;
-    /* max-width: 20%; */
 }
 
 .trivia {
     max-width: 85%;
 }
 
-.flex-container {
+#flex-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

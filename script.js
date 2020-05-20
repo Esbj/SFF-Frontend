@@ -1,7 +1,11 @@
-var logInArea = document.getElementById("login");
+const logInArea = document.getElementById("login");
+const movieTitle = document.getElementsByClassName("title");
+const triviaText = document.getElementsByClassName("trivia");
+const flex_container = document.getElementById("flex-container")
 
-var StudioURL = "https://localhost:44361/api/Filmstudio";
-var movieTitle = document.getElementsByClassName("title")
+const StudioURL = "https://localhost:44361/api/Filmstudio";
+const movieURL = "https://localhost:44361/api/Film";
+const triviaURL = "https://localhost:44361/api/Filmtrivia";
 
 
 if (localStorage.getItem("userName") != null) {
@@ -36,17 +40,34 @@ function showStartPage() {
                 }
             })
     })
-}
+    fetch(movieURL)
+        .then(response => response.json())
+        .then(function (movies) {
+            movies.forEach(m => {
+                flex_container.insertAdjacentHTML("beforeend",
+                '<div class = "flex-item" id = "movieId:'+m.id+'"><p>'+ m.name + '</p>'
+                )                
+            });
+        })
+    fetch(triviaURL)
+        .then(response => response.json())
+        .then(function (trivias) {
+            trivias.forEach(trivias => {
+                var movie = document.getElementById("movieId:"+trivias.filmId);
+                movie.insertAdjacentHTML("beforeend", trivias.trivia);
+            });
+        })
 
-function showLoginPage() {
-    console.log("Succes!");
-    logInArea.innerHTML = "";
-    logInArea.insertAdjacentHTML("beforeend", "Hej och välkommen " + localStorage.getItem("userName"));
-    logInArea.insertAdjacentHTML("beforeend", '<br><button type="submit" id = "logOutButton">Logga ut</button>');
-    var logOutButton = document.getElementById("logOutButton");
+    function showLoginPage() {
+        console.log("Succes!");
+        logInArea.innerHTML = "";
+        logInArea.insertAdjacentHTML("beforeend", "Hej och välkommen " + localStorage.getItem("userName"));
+        logInArea.insertAdjacentHTML("beforeend", '<br><button type="submit" id = "logOutButton">Logga ut</button>');
+        var logOutButton = document.getElementById("logOutButton");
 
-
-    logOutButton.addEventListener("click", function () {
-        localStorage.removeItem("userName");
-    })
+        logOutButton.addEventListener("click", function () {
+            localStorage.removeItem("userName");
+            showStartPage();
+        })
+    }
 }

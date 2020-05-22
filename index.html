@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SFF</title>
+        <script defer src="script.js"></script>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -21,12 +23,20 @@
             </div>
         </header>
         <div id="content">
-
             <div id="flex-container">
             </div>
         </div>
+        <footer>
+            <p>Registrera ny filmstudio:</p>
+            <form id="register">
+                <input class="input-flex" type="text" name="E-post" id="newStudioMail" placeholder="E-post">
+                <input class="input-flex" type="text" name="Namn" id="newStudioName" placeholder="Namn på organisation">
+                <input class="input-flex" type="password" name="password" id="newPass" placeholder="Lösenord">
+                <!-- <input type="text" name="location" id="newStudioLocation" placeholder="Ort"> -->
+                <button id="createNewStudio" type="submit">Skapa Konto</button>
+            </form>
+        </footer>
     </div>
-    <script src="script.js"></script>
 </body>
 
 </html>

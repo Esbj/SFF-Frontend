@@ -1,7 +1,9 @@
 const logInArea = document.getElementById("login");
 const movieTitle = document.getElementsByClassName("title");
 const triviaText = document.getElementsByClassName("trivia");
-const flex_container = document.getElementById("flex-container")
+const flexContainer = document.getElementById("flex-container");
+const registerForm = document.forms["register"];
+const registerButton = document.getElementById("createNewStudio");
 
 const StudioURL = "https://localhost:44361/api/Filmstudio";
 const movieURL = "https://localhost:44361/api/Film";
@@ -14,9 +16,17 @@ if (localStorage.getItem("userName") != null) {
     showStartPage();
 }
 
+registerForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    var uwu = registerForm;
+    console.log(document.getElementById("newStudioMail"))
+    
+})
+
 function showStartPage() {
     logInArea.innerHTML =
-        '<input type="text" placeholder="Användarnamn" name="login" id="user"><input type = "password" placeholder = "Lösenord" name = "pass" id = "password"><button type="submit" id="logInButton">Logga in</button>'
+        '<input type="text" placeholder="Användarnamn" name="login" id="user"><input type = "password" placeholder = "Lösenord" name = "pass" id = "password"><button type="submit" id="logInButton">Logga in</button>';
+    flexContainer.innerHTML = "";
     var logInButton = document.getElementById("logInButton")
     logInButton.addEventListener("click", function () {
         console.log("Button!!!");
@@ -34,9 +44,7 @@ function showStartPage() {
                     if (json[i].name == getUser && json[i].password == getPassword && json[i].verified == true) {
                         localStorage.setItem("userName", getUser)
                         showLoginPage();
-                    } else {
-                        console.log("Welp... that didn't work did it")
-                    }
+                    } 
                 }
             })
     })
@@ -44,17 +52,18 @@ function showStartPage() {
         .then(response => response.json())
         .then(function (movies) {
             movies.forEach(m => {
-                flex_container.insertAdjacentHTML("beforeend",
-                '<div class = "flex-item" id = "movieId:'+m.id+'"><p>'+ m.name + '</p>'
-                )                
-            });
+                flexContainer.insertAdjacentHTML("beforeend",'<div class = "flex-item" id = "movieId:' + m.id + '"><img src = "images/LOTR.jpg"><p class = "title">' + m.name + '</p></div>');
+                });
         })
     fetch(triviaURL)
         .then(response => response.json())
         .then(function (trivias) {
+            var triviaText = document.getElementsByClassName("flex-container")
             trivias.forEach(trivias => {
-                var movie = document.getElementById("movieId:"+trivias.filmId);
-                movie.insertAdjacentHTML("beforeend", trivias.trivia);
+                var movie = document.getElementById("movieId:" + trivias.filmId);
+                if ("movieId:" + trivias.filmId === movie.id)
+                    movie.insertAdjacentHTML("beforeend", '<p>' + trivias.trivia + '</p>')
+                
             });
         })
 

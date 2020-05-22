@@ -28,10 +28,19 @@ header {
     padding-left: 20%;
 }
 
-#flex-container {
+#container {
     display: flex;
     flex-direction: row;
-    /* width: 33%; */
+    padding-right: 1em;
+}
+
+.title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2em;
+}
+
+.movie > li {
+    font-family: 'Roboto', sans-serif;
     padding-right: 1em;
 }
 
@@ -46,7 +55,8 @@ footer {
     margin-bottom: 1.5em;
     max-width: 51%;
 }
-#createNewStudio{
+
+#createNewStudio {
     margin-top: 1em;
 }
 
